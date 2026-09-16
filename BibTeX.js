@@ -84,7 +84,8 @@ function detectImport() {
 //%a = first listed creator surname
 //%y = year
 //%t = first word of title
-var citeKeyFormat = "%a_%t_%y";
+//var citeKeyFormat = "%a_%t_%y";
+var citeKeyFormat = "%a-%y-%T";
 
 var fieldMap = {
 	address:"place",
@@ -1257,6 +1258,12 @@ var citeKeyConversions = {
 	"t":function (flags, item) {
 		if (item["title"]) {
 			return item["title"].toLowerCase().replace(citeKeyTitleBannedRe, "").split(/\s+/g)[0];
+		}
+		return "notitle";
+	},
+	"T":function (flags, item) {
+		if (item["title"]) {
+			return item["title"].toLowerCase().replace(/<[^>]+>/g, " ").replace(/-/g, " ").replace(/[^a-z0-9\s]/g, "").trim().split(/\s+/g).slice(0,3).join("-");
 		}
 		return "notitle";
 	},
