@@ -85,7 +85,7 @@ function detectImport() {
 //%y = year
 //%t = first word of title
 //var citeKeyFormat = "%a_%t_%y";
-var citeKeyFormat = "%a-%y-%T";
+var citeKeyFormat = "%A-%y-%T";
 
 var fieldMap = {
 	address:"place",
@@ -1258,6 +1258,12 @@ var citeKeyConversions = {
 		}
 		return "noauthor";
 	},
+	"A":function (flags, item) {
+		if (item.creators && item.creators[0] && item.creators[0].lastName) {
+			return item.creators[0].lastName.toLowerCase().replace(/ /g,"-").replace(/,/g,"");
+		}
+		return "noauthor";
+	},
 	"t":function (flags, item) {
 		if (item["title"]) {
 			return item["title"].toLowerCase().replace(citeKeyTitleBannedRe, "").split(/\s+/g)[0];
@@ -1266,7 +1272,7 @@ var citeKeyConversions = {
 	},
 	"T":function (flags, item) {
 		if (item["title"]) {
-			return item["title"].toLowerCase().replace(/<[^>]+>/g, " ").replace(/-/g, " ").replace(/[^a-z0-9\s]/g, "").trim().split(/\s+/g).slice(0,3).join("-");
+			return item["title"].toLowerCase().replace(/-/g, " ").replace(/<[^>]+>/g, "").replace(/[^a-z0-9\s]/g, "").trim().split(/\s+/g).slice(0,3).join("-");
 		}
 		return "notitle";
 	},
