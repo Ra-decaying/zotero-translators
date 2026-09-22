@@ -1110,6 +1110,9 @@ function mapHTMLmarkup(characters){
 	//two variants of small caps
 	characters = characters.replace(/\{\\textless\}span\sstyle=\"small\-caps\"\{\\textgreater\}(.+?)\{\\textless\}\/span{\\textgreater\}/g, "\\textsc{$1}")
 		.replace(/\{\\textless\}sc\{\\textgreater\}(.+?)\{\\textless\}\/sc\{\\textgreater\}/g, "\\textsc{$1}");
+	//nocase
+	characters = characters.replace(/\{\\textless\}span\sclass=\"nocase\"\{\\textgreater\}(.+?)\{\\textless\}\/span{\\textgreater\}/g, "$1")
+		.replace(/\{\\textless\}nc\{\\textgreater\}(.+?)\{\\textless\}\/nc\{\\textgreater\}/g, "$1");
 	return characters;
 }
 
